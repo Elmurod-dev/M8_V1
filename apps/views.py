@@ -1,3 +1,6 @@
+from datetime import datetime
+import random
+
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -116,4 +119,33 @@ def user_post_combo_view(request,pk=None):
 
 
 
+### Motivation
+def motivation_view(request):
+    word = [
+    "Bugun sening kuning!",
+    "Harakat qilish vaqti keldi!",
+    "Sizda har narsaga qodir kuch bor!",
+    "Har doim o'z maqsadlaringizga intiling!",
+    "Sabr, mehnat va ishonch - muvaffaqiyatning kaliti!",
+    "Sizni katta yutuqlar kutmoqda!",
+           ]
+    if request.method == 'GET':
+        w = random.choice(word)
+        return JsonResponse({'word':w})
 
+
+### hello
+def helle_view(request):
+    name = request.GET.get('name')
+    age = request.GET.get('age')
+    city = request.GET.get('city')
+    color = request.GET.get('color')
+    if city is None and color is None:
+        return JsonResponse({"message": f"Hello, {name}! You are {age} years old and you are awesome!"})
+    return JsonResponse({'name':name,'age':age,'city':city,'color':color})
+
+### date
+def date_view(request):
+    sana = datetime.strptime(request.GET.get('date'), "%Y-%m-%d")
+    hafta_kuni = sana.strftime("%A")
+    return JsonResponse({'date':f"Today is {hafta_kuni}"})
