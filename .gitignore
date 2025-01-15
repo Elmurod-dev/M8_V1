@@ -1,0 +1,5 @@
+.idea/
+.venv/
+*.log
+db.sqlite3
+*.sqlite3
